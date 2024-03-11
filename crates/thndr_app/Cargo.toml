@@ -1,0 +1,14 @@
+[package]
+name = "thndr_app"
+version = "0.0.1"
+edition = "2021"
+description = "Thunder's application framework"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "app", "gamedev"]
+categories = ["game-development", "app", "game-engines"]
+
+[dependencies]
+
+[lints]
+workspace = true
