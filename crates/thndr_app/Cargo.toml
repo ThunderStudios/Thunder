@@ -1,14 +1,15 @@
 [package]
 name = "thndr_app"
-version = "0.0.1"
+version = "0.1.0-dev"
 edition = "2021"
 description = "Thunder's application framework"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/ThunderStudios/Thunder"
 keywords = ["game", "engine", "thunder", "app", "gamedev"]
-categories = ["game-development", "app", "game-engines"]
+categories = ["game-development", "game-engines"]
 
 [dependencies]
+thndr_ecs = { path = "../thndr_ecs", version = "0.1.0-dev" }
 
 [lints]
 workspace = true

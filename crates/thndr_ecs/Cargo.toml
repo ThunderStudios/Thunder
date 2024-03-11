@@ -1,6 +1,6 @@
 [package]
 name = "thndr_ecs"
-version = "0.0.1"
+version = "0.1.0-dev"
 edition = "2021"
 description = "Thunder's ECS, built on hecs"
 license = "MIT OR Apache-2.0"
@@ -9,6 +9,10 @@ keywords = ["game", "engine", "thunder", "ecs", "gamedev"]
 categories = ["game-development", "ecs", "game-engines"]
 
 [dependencies]
+hecs = "0.10"
+hecs-hierarchy = "0.12"
+hecs-schedule = "0.7"
+rayon = "1.9"
 
 [lints]
 workspace = true

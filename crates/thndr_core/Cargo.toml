@@ -1,6 +1,6 @@
 [package]
 name = "thndr_core"
-version = "0.0.1"
+version = "0.1.0-dev"
 edition = "2021"
 description = "Thunder's core components"
 license = "MIT OR Apache-2.0"
@@ -9,6 +9,8 @@ keywords = ["game", "engine", "thunder", "graphics", "gamedev"]
 categories = ["game-development", "graphics", "game-engines"]
 
 [dependencies]
+thndr_ecs = { path = "../thndr_ecs", version = "0.1.0-dev" }
+thndr_app = { path = "../thndr_app", version = "0.1.0-dev" }
 
 [lints]
 workspace = true
