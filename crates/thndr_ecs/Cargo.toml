@@ -1,0 +1,14 @@
+[package]
+name = "thndr_ecs"
+version = "0.0.1"
+edition = "2021"
+description = "Thunder's ECS, built on hecs"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "ecs", "gamedev"]
+categories = ["game-development", "ecs", "game-engines"]
+
+[dependencies]
+
+[lints]
+workspace = true

@@ -8,6 +8,10 @@ repository = "https://github.com/ThunderStudios/Thunder"
 license = "MIT OR Apache-2.0"
 keywords = ["game", "engine", "thunder", "graphics", "gamedev"]
 categories = ["game-development", "graphics", "game-engines"]
+exclude = ["crates/"]
+
+[workspace]
+members = ["crates/*"]
 
 [workspace.lints.rust]
 unsafe_op_in_unsafe_fn = "warn"

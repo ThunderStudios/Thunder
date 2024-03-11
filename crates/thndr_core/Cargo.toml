@@ -1,0 +1,14 @@
+[package]
+name = "thndr_core"
+version = "0.0.1"
+edition = "2021"
+description = "Thunder's core components"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "graphics", "gamedev"]
+categories = ["game-development", "graphics", "game-engines"]
+
+[dependencies]
+
+[lints]
+workspace = true
