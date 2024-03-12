@@ -4,6 +4,8 @@
 //! It defines the main application struct and the main loop.
 //!
 
+use std::sync::Arc;
+
 use plugin::Plugin;
 use thndr_ecs::prelude::*;
 
@@ -33,11 +35,12 @@ impl ScheduleRunner for DefaultRunner {
         startup.execute((&mut app.world,)).expect("Startup failed");
 
         loop {
-            pre_update.execute((&mut app.world,))
+            pre_update
+                .execute((&mut app.world,))
                 .expect("Pre-update failed");
-            update.execute((&mut app.world,))
-                .expect("Update failed");
-            post_update.execute((&mut app.world,))
+            update.execute((&mut app.world,)).expect("Update failed");
+            post_update
+                .execute((&mut app.world,))
                 .expect("Post-update failed");
         }
     }
@@ -61,7 +64,7 @@ pub struct App {
     /// The runner for the application.
     pub runner: Option<Box<dyn ScheduleRunner>>,
     /// The plugins for the application.
-    pub plugins: Vec<Box<dyn Plugin>>,
+    pub plugins: Vec<Arc<dyn Plugin>>,
 }
 
 impl App {
@@ -83,7 +86,7 @@ impl App {
     where
         P: 'static + Plugin,
     {
-        self.plugins.push(Box::new(plugin));
+        self.plugins.push(Arc::new(plugin));
 
         self
     }
@@ -140,7 +143,15 @@ impl App {
 
     /// Run the application.
     pub fn run(&mut self) {
-        let mut runner = self.runner.take().unwrap_or_else(|| Box::new(DefaultRunner));
+        let plugins = self.plugins.clone();
+        for plugin in plugins {
+            plugin.build(self);
+        }
+
+        let mut runner = self
+            .runner
+            .take()
+            .unwrap_or_else(|| Box::new(DefaultRunner));
 
         runner.run_app(self);
     }
@@ -148,6 +159,6 @@ impl App {
 
 /// Common types, traits, and functions.
 pub mod prelude {
-    pub use crate::{App, ScheduleRunner};
     pub use crate::plugin::Plugin;
+    pub use crate::{App, ScheduleRunner};
 }

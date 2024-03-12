@@ -1,0 +1,18 @@
+[package]
+name = "thndr_tracing"
+version = "0.1.0-dev"
+edition = "2021"
+description = "Thunder's tracing/logging abstraction"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "tracing", "gamedev"]
+categories = ["game-development", "game-engines", "tracing"]
+
+[dependencies]
+tracing = { version = "0.1", features = ["attributes"] }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+thndr_app = { path = "../thndr_app", version = "0.1.0-dev" }
+
+[lints]
+workspace = true

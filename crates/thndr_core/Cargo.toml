@@ -13,6 +13,7 @@ thndr_ecs = { path = "../thndr_ecs", version = "0.1.0-dev" }
 thndr_app = { path = "../thndr_app", version = "0.1.0-dev" }
 thndr_math = { path = "../thndr_math", version = "0.1.0-dev" }
 thndr_transform = { path = "../thndr_transform", version = "0.1.0-dev" }
+thndr_tracing = { path = "../thndr_tracing", version = "0.1.0-dev" }
 
 [lints]
 workspace = true

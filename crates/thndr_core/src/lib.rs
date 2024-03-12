@@ -9,5 +9,6 @@ pub mod prelude {
     pub use thndr_app::prelude::*;
     pub use thndr_ecs::prelude::*;
     pub use thndr_math::prelude::*;
+    pub use thndr_tracing::prelude::*;
     pub use thndr_transform::prelude::*;
 }

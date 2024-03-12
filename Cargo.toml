@@ -22,3 +22,7 @@ workspace = true
 
 [dependencies]
 thndr_core = { path = "crates/thndr_core", version = "0.1.0-dev" }
+
+[[example]]
+name = "first_entity"
+path = "examples/ecs/first_entity.rs"

@@ -2,11 +2,9 @@
 use thndr::prelude::*;
 
 fn update() {
-    println!("Hello, world!");
+    println!("Hello, Thunder!");
 }
 
 fn main() {
-    App::new()
-        .add_update_system(update)
-        .run();
+    App::new().add_update_system(update).run();
 }
