@@ -124,6 +124,17 @@ impl From<Scale> for Vec3 {
     }
 }
 
+/// A bundle containing a [Position], [Rotation] and [Scale].
+#[derive(Default, Debug, Bundle, DynamicBundleClone)]
+pub struct TransformBundle {
+    /// The position of the entity.
+    pub position: Position,
+    /// The rotation of the entity.
+    pub rotation: Rotation,
+    /// The scale of the entity.
+    pub scale: Scale,
+}
+
 /// A Transform in the global 3D space.
 #[derive(Default, Debug, Copy, Clone, PartialEq)]
 pub struct GlobalTransform(pub Mat4);

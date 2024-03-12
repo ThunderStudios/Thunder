@@ -106,8 +106,10 @@ impl CommandsExt for Commands<'_> {
 pub struct Tree;
 
 /// Exports common types, traits, and functions.
+#[allow(ambiguous_glob_reexports)]
 pub mod prelude {
-    pub use hecs::{Entity, Query, QueryBorrow, QueryIter, World};
+    pub use hecs;
+    pub use hecs::*;
     pub use hecs_hierarchy::*;
     pub use hecs_schedule::*;
     pub use rayon::prelude::*;

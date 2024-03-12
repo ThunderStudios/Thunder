@@ -21,7 +21,8 @@ fn setup(mut commands: Commands) {
 // this system will get called every frame
 // we specify something called a `SubWorld` as an argument to the system.
 // this specifies that the system will only have access to the entities and components that are in the `SubWorld`.
-// this is useful for performance, as it allows for the system to only access the data it needs.
+// this is useful for performance, as it allows for the system to only access the data it needs,
+// making it possible to run other systems in parallel.
 fn update(sub_world: SubWorld<&Position>) {
     // we can iterate over all entities with a given component using the `query` method.
     // the `query` method returns an iterator over all entities with the given component, and a borrowed reference to the component data.
