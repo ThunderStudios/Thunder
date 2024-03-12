@@ -1,0 +1,16 @@
+[package]
+name = "thndr_time"
+version = "0.1.0-dev"
+edition = "2021"
+description = "Time related utilities for Thunder"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "time", "gamedev"]
+categories = ["game-development", "game-engines"]
+
+[dependencies]
+thndr_app = { path = "../thndr_app", version = "0.1.0-dev" }
+thndr_ecs = { path = "../thndr_ecs", version = "0.1.0-dev" }
+
+[lints]
+workspace = true
