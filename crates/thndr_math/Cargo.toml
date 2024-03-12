@@ -1,0 +1,15 @@
+[package]
+name = "thndr_math"
+version = "0.1.0-dev"
+edition = "2021"
+description = "Thunder math library"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "math", "gamedev"]
+categories = ["game-development", "game-engines", "math"]
+
+[dependencies]
+glam = "0.25"
+
+[lints]
+workspace = true

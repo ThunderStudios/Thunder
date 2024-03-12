@@ -1,0 +1,15 @@
+[package]
+name = "thndr_transform"
+version = "0.1.0-dev"
+edition = "2021"
+description = "Thunder Transform components"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "math", "gamedev"]
+categories = ["game-development", "game-engines", "math"]
+
+[dependencies]
+thndr_math = { path = "../thndr_math", version = "0.1.0-dev" }
+
+[lints]
+workspace = true

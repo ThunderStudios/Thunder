@@ -6,6 +6,8 @@
 
 /// Re-exports all major libraries in the Thunder Engine.
 pub mod prelude {
-    pub use thndr_ecs::prelude::*;
     pub use thndr_app::prelude::*;
+    pub use thndr_ecs::prelude::*;
+    pub use thndr_math::prelude::*;
+    pub use thndr_transform::prelude::*;
 }
