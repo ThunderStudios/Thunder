@@ -101,13 +101,18 @@ impl CommandsExt for Commands<'_> {
     }
 }
 
+/// Marker type for entity hierarchies.
+#[derive(Debug, Default, Clone, Copy)]
+pub struct Tree;
+
 /// Exports common types, traits, and functions.
 pub mod prelude {
-    pub use hecs::{Entity, World};
+    pub use hecs::{Entity, Query, QueryBorrow, QueryIter, World};
     pub use hecs_hierarchy::*;
     pub use hecs_schedule::*;
     pub use rayon::prelude::*;
 
     pub use crate::Commands;
     pub use crate::CommandsExt;
+    pub use crate::Tree;
 }

@@ -10,6 +10,8 @@ categories = ["game-development", "game-engines", "math"]
 
 [dependencies]
 thndr_math = { path = "../thndr_math", version = "0.1.0-dev" }
+thndr_app = { path = "../thndr_app", version = "0.1.0-dev" }
+thndr_ecs = { path = "../thndr_ecs", version = "0.1.0-dev" }
 
 [lints]
 workspace = true
