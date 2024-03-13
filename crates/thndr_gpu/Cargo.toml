@@ -1,0 +1,31 @@
+[package]
+name = "thndr_gpu"
+version = "0.1.0-dev"
+edition = "2021"
+description = "Thunder GPU Abstraction Layer"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "gpu", "gamedev"]
+categories = ["game-development", "game-engines"]
+
+[features]
+# its fine to enable d3d11 and d3d12, since they shouldn't cause issues on other platforms.
+default = ["vulkan", "d3d11", "d3d12"] 
+vulkan = ["dep:ash", "dep:gpu-allocator"]
+d3d11 = ["dep:windows"] 
+d3d12 = ["dep:windows"]
+
+[dependencies]
+thiserror = "1.0"
+
+ash = { version = "0.37", optional = true }
+gpu-allocator = { version = "0.25", optional = true }
+
+[dependencies.windows]
+version = "0.54"
+optional = true
+features = ["Win32_Graphics_Direct3D11", "Win32_Graphics_Direct3D12", "Win32_Graphics_Dxgi", "Win32_Graphics_Direct3D"]
+
+
+[lints]
+workspace = true
