@@ -7,6 +7,10 @@ use thndr_app::prelude::*;
 use thndr_ecs::prelude::*;
 use thndr_math::prelude::*;
 
+// most cursed temporary fix,
+// this works since everything in hecs is re-exported from thndr_ecs
+extern crate self as hecs;
+
 /// A Position in 3D space. If in a [Tree], this is relative to the parent entity.
 #[derive(Default, Debug, Copy, Clone, PartialEq)]
 pub struct Position(pub Vec3);
