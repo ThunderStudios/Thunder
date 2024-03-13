@@ -15,6 +15,8 @@ thndr_math = { path = "../thndr_math", version = "0.1.0-dev" }
 thndr_transform = { path = "../thndr_transform", version = "0.1.0-dev" }
 thndr_tracing = { path = "../thndr_tracing", version = "0.1.0-dev" }
 thndr_time = { path = "../thndr_time", version = "0.1.0-dev" }
+thndr_event = { path = "../thndr_event", version = "0.1.0-dev" }
+thndr_window = { path = "../thndr_window", version = "0.1.0-dev" }
 
 [lints]
 workspace = true

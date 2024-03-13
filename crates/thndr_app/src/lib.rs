@@ -68,21 +68,21 @@ pub struct App {
     /// The ECS world.
     pub world: World,
     /// The startup schedule.
-    startup: ScheduleBuilder,
+    pub startup: ScheduleBuilder,
     /// The direct startup systems.
-    direct_startup: Vec<Box<dyn Fn(&mut World)>>,
+    pub direct_startup: Vec<Box<dyn Fn(&mut World)>>,
     /// The pre-update schedule.
-    pre_update: ScheduleBuilder,
+    pub pre_update: ScheduleBuilder,
     /// The direct pre-update systems.
-    direct_pre_update: Vec<Box<dyn Fn(&mut World)>>,
+    pub direct_pre_update: Vec<Box<dyn Fn(&mut World)>>,
     /// The update schedule.
-    update: ScheduleBuilder,
+    pub update: ScheduleBuilder,
     /// The direct update systems.
-    direct_update: Vec<Box<dyn Fn(&mut World)>>,
+    pub direct_update: Vec<Box<dyn Fn(&mut World)>>,
     /// The post-update schedule.
-    post_update: ScheduleBuilder,
+    pub post_update: ScheduleBuilder,
     /// The direct post-update systems.
-    direct_post_update: Vec<Box<dyn Fn(&mut World)>>,
+    pub direct_post_update: Vec<Box<dyn Fn(&mut World)>>,
     /// The runner for the application.
     pub runner: Option<Box<dyn ScheduleRunner>>,
     /// The plugins for the application.
@@ -160,7 +160,7 @@ impl App {
     /// Add a direct system to the startup schedule.
     pub fn add_direct_startup_system<F>(&mut self, system: F) -> &mut Self
     where
-        F: 'static + Fn(&mut World) + Send + Sync,
+        F: 'static + Fn(&mut World),
     {
         self.direct_startup.push(Box::new(system));
 
@@ -170,7 +170,7 @@ impl App {
     /// Add a direct system to the pre-update schedule.
     pub fn add_direct_pre_update_system<F>(&mut self, system: F) -> &mut Self
     where
-        F: 'static + Fn(&mut World) + Send + Sync,
+        F: 'static + Fn(&mut World),
     {
         self.direct_pre_update.push(Box::new(system));
 
@@ -180,7 +180,7 @@ impl App {
     /// Add a direct system to the update schedule.
     pub fn add_direct_update_system<F>(&mut self, system: F) -> &mut Self
     where
-        F: 'static + Fn(&mut World) + Send + Sync,
+        F: 'static + Fn(&mut World),
     {
         self.direct_update.push(Box::new(system));
 
@@ -190,7 +190,7 @@ impl App {
     /// Add a direct system to the post-update schedule.
     pub fn add_direct_post_update_system<F>(&mut self, system: F) -> &mut Self
     where
-        F: 'static + Fn(&mut World) + Send + Sync,
+        F: 'static + Fn(&mut World),
     {
         self.direct_post_update.push(Box::new(system));
 

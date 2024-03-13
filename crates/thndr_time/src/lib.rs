@@ -77,3 +77,8 @@ impl Plugin for TimePlugin {
         });
     }
 }
+
+/// Common types, traits, and functions.
+pub mod prelude {
+    pub use crate::{Time, TimePlugin};
+}

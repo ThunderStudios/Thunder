@@ -1,0 +1,22 @@
+[package]
+name = "thndr_window"
+version = "0.1.0-dev"
+edition = "2021"
+description = "Thunder Windowing library"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ThunderStudios/Thunder"
+keywords = ["game", "engine", "thunder", "window", "gamedev"]
+categories = ["game-development", "game-engines"]
+
+[dependencies]
+winit = "0.29"
+anyhow = "1.0"
+
+thndr_app = { path = "../thndr_app", version = "0.1.0-dev" }
+thndr_math = { path = "../thndr_math", version = "0.1.0-dev" }
+thndr_ecs = { path = "../thndr_ecs", version = "0.1.0-dev" }
+thndr_event = { path = "../thndr_event", version = "0.1.0-dev" }
+thndr_tracing = { path = "../thndr_tracing", version = "0.1.0-dev" }
+
+[lints]
+workspace = true

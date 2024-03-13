@@ -452,7 +452,5 @@ impl Plugin for TransformPlugin {
 
 /// Common transform types and functions.
 pub mod prelude {
-    pub use super::{GlobalTransform, Position, Rotation, Scale};
-
-    pub use crate::TransformPlugin;
+    pub use super::{GlobalTransform, Position, Rotation, Scale, TransformPlugin};
 }

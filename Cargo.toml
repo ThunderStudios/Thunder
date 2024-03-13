@@ -30,3 +30,7 @@ path = "examples/ecs/first_entity.rs"
 [[example]]
 name = "hierarchy"
 path = "examples/ecs/hierarchy.rs"
+
+[[example]]
+name = "events"
+path = "examples/ecs/events.rs"
