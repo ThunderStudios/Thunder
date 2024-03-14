@@ -3,7 +3,7 @@
 //! `thndr_gpu` is Thunder's GPU abstraction layer. It provides a simple and easy to use API for
 //! working with the GPU.
 //!
-//! The plan is to support multiple backends, staring with Vulkan.
+//! The plan is to support multiple backends, staring with WGPU.
 //!
 
 /// Defines what backend is being used for the GPU.

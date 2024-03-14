@@ -1,9 +1,9 @@
 use thiserror::Error;
 
-use crate::backend::{d3d11, vulkan, Backend};
+use crate::backend::{webgpu, Backend};
 use std::{fmt::Debug, sync::Arc};
 
-use super::device;
+use super::{device, surface};
 
 /// The version of an application.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -44,12 +44,9 @@ pub type Result<T, E = InstanceError> = std::result::Result<T, E>;
 /// An [Instance] allows for the creation of [device::Device]s and [super::surface::Surface]s.
 #[derive(Debug)]
 pub enum Instance {
-    #[cfg(all(feature = "vulkan", not(target_arch = "wasm32")))]
-    /// The Vulkan instance.
-    Vulkan(Arc<vulkan::instance::Instance>),
-    #[cfg(all(feature = "d3d11", target_os = "windows", not(target_arch = "wasm32")))]
-    /// The Direct3D 11 instance.
-    D3D11(Arc<d3d11::instance::Instance>),
+    #[cfg(feature = "webgpu")]
+    /// The WebGPU instance.
+    WebGPU(Arc<webgpu::instance::Instance>),
 }
 
 /// The required functionality for an [Instance].
@@ -67,7 +64,14 @@ pub trait InstanceFunctions {
     fn create_device(
         this: Arc<Self>,
         config: device::DeviceConfig,
+        compatible_surface: Option<&surface::Surface>,
     ) -> device::Result<device::Device>;
+
+    /// Creates a new [surface::Surface] using the given [surface::SurfaceConfig].
+    fn create_surface<'a, W: surface::WindowHandle + 'a>(
+        this: Arc<Self>,
+        config: surface::SurfaceConfig<W>,
+    ) -> surface::Result<surface::Surface<'a>>;
 }
 
 impl Instance {
@@ -75,31 +79,30 @@ impl Instance {
     pub fn new(config: InstanceConfig) -> Result<Self> {
         match config.backend {
             #[cfg(all(feature = "vulkan", not(target_arch = "wasm32")))]
-            Backend::Vulkan => {
-                let instance = vulkan::instance::Instance::new(config)?;
-                Ok(Instance::Vulkan(Arc::new(instance)))
-            }
+            Backend::Vulkan => todo!(),
             #[cfg(all(feature = "d3d11", target_os = "windows", not(target_arch = "wasm32")))]
-            Backend::D3D11 => {
-                let instance = d3d11::instance::Instance::new(config)?;
-                Ok(Instance::D3D11(Arc::new(instance)))
+            Backend::D3D11 => todo!(),
+            #[cfg(feature = "webgpu")]
+            Backend::WebGPU => {
+                let instance = webgpu::instance::Instance::new(config)?;
+                Ok(Instance::WebGPU(Arc::new(instance)))
             }
-            #[cfg(all(feature = "d3d12", target_os = "windows", not(target_arch = "wasm32")))]
-            Backend::D3D12 => todo!(),
         }
     }
 
     /// Creates a new [device::Device] using the given [device::DeviceConfig].
-    pub fn create_device(&self, config: device::DeviceConfig) -> device::Result<device::Device> {
+    pub fn create_device(
+        &self,
+        config: device::DeviceConfig,
+        compatible_surface: Option<&surface::Surface>,
+    ) -> device::Result<device::Device> {
         match self {
-            #[cfg(all(feature = "vulkan", not(target_arch = "wasm32")))]
-            Instance::Vulkan(instance) => {
-                vulkan::instance::Instance::create_device(instance.clone(), config)
-            }
-            #[cfg(all(feature = "d3d11", target_os = "windows", not(target_arch = "wasm32")))]
-            Instance::D3D11(instance) => {
-                d3d11::instance::Instance::create_device(instance.clone(), config)
-            }
+            #[cfg(feature = "webgpu")]
+            Instance::WebGPU(instance) => webgpu::instance::Instance::create_device(
+                instance.clone(),
+                config,
+                compatible_surface,
+            ),
         }
     }
 }
@@ -108,73 +111,29 @@ impl Instance {
 mod tests {
     use super::*;
 
-    #[cfg(all(feature = "vulkan", not(target_arch = "wasm32")))]
+    #[cfg(feature = "webgpu")]
     #[test]
-    fn create_instance_vulkan() {
-        let config = InstanceConfig {
-            backend: Backend::Vulkan,
+    fn test_webgpu_instance() {
+        let instance = Instance::new(InstanceConfig {
+            backend: Backend::WebGPU,
             app_name: "Test".to_string(),
             app_version: Version {
                 major: 1,
                 minor: 0,
                 patch: 0,
             },
-        };
+        })
+        .unwrap();
 
-        let instance = Instance::new(config).unwrap();
-        println!("{:?}", instance);
-    }
+        let device = instance
+            .create_device(
+                device::DeviceConfig {
+                    power_preference: device::PowerPreference::High,
+                },
+                None,
+            )
+            .unwrap();
 
-    #[cfg(all(feature = "d3d11", target_os = "windows", not(target_arch = "wasm32")))]
-    #[test]
-    fn create_instance_d3d11() {
-        let config = InstanceConfig {
-            backend: Backend::D3D11,
-            app_name: "Test".to_string(),
-            app_version: Version {
-                major: 1,
-                minor: 0,
-                patch: 0,
-            },
-        };
-
-        let instance = Instance::new(config).unwrap();
-        println!("{:?}", instance);
-    }
-
-    #[cfg(all(feature = "vulkan", not(target_arch = "wasm32")))]
-    #[test]
-    fn create_device_vulkan() {
-        let config = InstanceConfig {
-            backend: Backend::Vulkan,
-            app_name: "Test".to_string(),
-            app_version: Version {
-                major: 1,
-                minor: 0,
-                patch: 0,
-            },
-        };
-
-        let instance = Instance::new(config).unwrap();
-        let device = instance.create_device(device::DeviceConfig {}).unwrap();
-        println!("{:?}", device);
-    }
-
-    #[cfg(all(feature = "d3d11", target_os = "windows", not(target_arch = "wasm32")))]
-    #[test]
-    fn create_device_d3d11() {
-        let config = InstanceConfig {
-            backend: Backend::D3D11,
-            app_name: "Test".to_string(),
-            app_version: Version {
-                major: 1,
-                minor: 0,
-                patch: 0,
-            },
-        };
-
-        let instance = Instance::new(config).unwrap();
-        let device = instance.create_device(device::DeviceConfig {}).unwrap();
-        println!("{:?}", device);
+        assert!(matches!(device, device::Device::WebGPU(_)));
     }
 }
